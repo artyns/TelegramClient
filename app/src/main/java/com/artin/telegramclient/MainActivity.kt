@@ -173,7 +173,7 @@ class MainActivity : ComponentActivity() {
         selectedChat = chat
         messages = emptyList()
         runCatching {
-            val result = td.send(TdApi.GetChatHistory(chat.id, 0, 0, 50, false))
+            val result = td.send(TdApi.GetChatHistory(chat.id, null, 0, 0, 50, false))
             if (result is TdApi.Messages) messages = result.messages.reversed()
         }.onFailure { errorText = it.message ?: "Could not load messages" }
     }
@@ -186,7 +186,7 @@ class MainActivity : ComponentActivity() {
         runCatching {
             val formatted = TdApi.FormattedText(text, emptyArray())
             val content = TdApi.InputMessageText(formatted, null, true)
-            td.send(TdApi.SendMessage(chat.id, 0, null, null, null, content))
+            td.send(TdApi.SendMessage(chat.id, null, null, null, null, content))
         }.onFailure {
             errorText = it.message ?: "Message could not be sent"
             draft = text
@@ -270,7 +270,7 @@ class MainActivity : ComponentActivity() {
             }
             if (errorText.isNotBlank()) Text(errorText, color = Color(0xFFFF8A9A), modifier = Modifier.padding(horizontal = 12.dp))
             Row(Modifier.fillMaxWidth().background(Color(0xFF171222)).padding(horizontal = 8.dp, vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
-                OutlinedTextField(value = draft, onValueChange = { draft = it }, modifier = Modifier.weight(1f), placeholder = { Text("Message", color = Color(0xFF9F94B2)) }, maxLines = 3, colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Color(0xFF9B7BDB), unfocusedBorderColor = Color(0xFF3A304D), focusedTextColor = Color(0xFFF2ECFF), unfocusedTextColor = Color(0xFFF2ECFF))
+                OutlinedTextField(value = draft, onValueChange = { draft = it }, modifier = Modifier.weight(1f), placeholder = { Text("Message", color = Color(0xFF9F94B2)) }, maxLines = 3, colors = OutlinedTextFieldDefaults.colors(focusedBorderColor = Color(0xFF9B7BDB), unfocusedBorderColor = Color(0xFF3A304D), focusedTextColor = Color(0xFFF2ECFF), unfocusedTextColor = Color(0xFFF2ECFF)))
                 TextButton(onClick = { sendMessage() }) { Text("Send") }
             }
         }

@@ -20,7 +20,7 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "0.1.0"
-        buildConfigField("Int", "TELEGRAM_API_ID", localProps.getProperty("TELEGRAM_API_ID", "0"))
+        buildConfigField("int", "TELEGRAM_API_ID", localProps.getProperty("TELEGRAM_API_ID", "0"))
         buildConfigField("String", "TELEGRAM_API_HASH", "\"${localProps.getProperty("TELEGRAM_API_HASH", "MISSING_API_HASH")}\"")
     }
 
