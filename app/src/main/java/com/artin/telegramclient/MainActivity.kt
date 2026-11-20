@@ -173,7 +173,7 @@ class MainActivity : ComponentActivity() {
         selectedChat = chat
         messages = emptyList()
         runCatching {
-            val result = td.send(TdApi.GetChatHistory(chat.id, null, 0, 0, 50, false))
+            val result = td.send(TdApi.GetChatHistory(chat.id, 0L, 0, 50, false))
             if (result is TdApi.Messages) messages = result.messages.reversed()
         }.onFailure { errorText = it.message ?: "Could not load messages" }
     }
